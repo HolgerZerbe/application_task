@@ -175,7 +175,7 @@ btnObj.onclick = (ev) => {
     const tableObj = document.getElementsByClassName('general_table')[0];
     let newTable = `<thead>
     <tr>
-        <td>Salutation</td><td>First name</td><td>Last name</td><td>Telephon</td><td>Email</td>
+        <td>Salutation</td><td>First name</td><td>Last name</td><td>Telephone</td><td>Email</td>
     </tr>
     </thead>
     <tbody>`;
