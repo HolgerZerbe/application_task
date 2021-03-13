@@ -7,7 +7,9 @@ btnObj.onclick = (ev) => {
     // resultArr will be at the end an array with objects inside 
     // as items. These objects will have the keys salutation, 
     // firstName, lastName, telephone, email and valid.
-    // This Array with the objects will be used to create the table.
+    // At the end this Array with the objects will be 
+    // filtered for valid objects duplicates will be deleted.
+    // The filtered resultArr will be used to create the table.
 
     let resultArr = [];
 
@@ -20,14 +22,7 @@ btnObj.onclick = (ev) => {
 
     let totalDataArr = totalData.value.split('\n');
 
-    let helperArr1 = [];
-    for (let i = 0; i < totalDataArr.length; i++) {
-        if (totalDataArr[i].length > 0) {
-            helperArr1.push(totalDataArr[i]);
-        }
-    }
-    totalDataArr = [...helperArr1]
-
+    totalDataArr = totalDataArr.filter(elem => elem.length>0)
 
 
     // splitting the lines of complete data into single array
@@ -39,13 +34,7 @@ btnObj.onclick = (ev) => {
     for (let i = 0; i < totalDataArr.length; i++) {
         totalDataAsSingleArr.push(totalDataArr[i].split(' '));
 
-        let helperArr2 = [];
-        for (let j = 0; j < totalDataAsSingleArr[i].length; j++) {
-            if (totalDataAsSingleArr[i][j] !== '') {
-                helperArr2.push(totalDataAsSingleArr[i][j]);
-            }
-        }
-        totalDataAsSingleArr[i] = [...helperArr2];
+        totalDataAsSingleArr[i]=totalDataAsSingleArr[i].filter(elem => elem !== '');
     }
 
 
@@ -153,20 +142,15 @@ btnObj.onclick = (ev) => {
     // the we check if there only numbers and some allowed sign as
     // +,-,()
 
-    for (let i = 0; i < totalDataAsSingleArr.length; i++) {
-        if (totalDataAsSingleArr[i].length > 0) {
 
-            let telephoneNumber = totalDataAsSingleArr[i].join(' ');
-            if (!/[^0-9()\ \+\-]/.test(telephoneNumber)) {
-                resultArr[i].telephone = telephoneNumber;
-            } else {
-                resultArr[i].telephone = 'incorrect number';
-            }
-
+    totalDataAsSingleArr.forEach ((elem, i) => {
+        if (elem.length > 0) {
+            let telephoneNumber = elem.join(' ');
+            {!/[^0-9()\ \+\-]/.test(telephoneNumber) ? resultArr[i].telephone = telephoneNumber : resultArr[i].telephone = 'incorrect number'}
         } else {
             resultArr[i].telephone = '';
         }
-    }
+    });
 
     
     
